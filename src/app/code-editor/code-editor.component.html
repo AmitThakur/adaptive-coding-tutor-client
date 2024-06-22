@@ -1,3 +1,5 @@
 <form class="ui form">
-    <textarea placeholder="Wite Code here" rows="20"></textarea>
+    <textarea placeholder="Wite Code here" rows="20" [(ngModel)]="code" name="code" 
+    (ngModelChange)="onValueChange($event)"
+    ></textarea>
 </form>
