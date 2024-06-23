@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-code-editor',
@@ -20,8 +21,22 @@ sum = num1 + num2
 # Display the sum
 print('The sum of {0} and {1} is {2}'.format(num1, num2, sum))`;
 
+  constructor(private dataService: DataService) {
+
+  }
+
   public onValueChange(value: any): void {
     console.log('Value changed...');
     console.log(value);
+  }
+
+  public onCompileClick() {
+    // this.dataService.checkServerHealth().subscribe(status => {
+    //   console.log('Status is: '+ JSON.stringify(status));
+    // });
+
+    this.dataService.compileCode(this.code, 'python').subscribe(result => {
+      console.log('result is: '+ JSON.stringify(result));
+    });
   }
 }
