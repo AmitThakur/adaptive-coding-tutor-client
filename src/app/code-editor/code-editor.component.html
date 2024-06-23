@@ -7,6 +7,7 @@
 </form>
 <br>
 <button class="ui primary button" (click)="onCompileClick()">Compile</button>
+<button class="ui positive button" (click)="doCodeReview()">Code Review</button>
 <br>
 <div class="ui negative message" *ngIf="result && result.error">
     <i class="close icon"></i>
@@ -23,3 +24,15 @@
 </div>
 <p [innerHTML]="result.output"></p>
 </div>
+
+<div class="ui segment" *ngIf="loadingReview">
+<div class="ui active inverted dimmer">
+    <div class="ui text loader">Generating code review...</div>
+</div>
+</div>
+
+<div *ngIf="reviewOutput" class="ui segment">
+    <h3>Code has been reviewed:</h3>
+    <pre>{{reviewOutput}}</pre>
+</div>
+

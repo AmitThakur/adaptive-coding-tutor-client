@@ -2,3 +2,9 @@
 .myhover {
     cursor: pointer;
 }
+
+pre{ 
+    white-space: pre-wrap; 
+    word-break: break-word;
+ }
+ 

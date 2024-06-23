@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { DataService } from '../data.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ChatService } from '../chat.service';
 
 @Component({
   selector: 'app-code-editor',
@@ -13,10 +14,15 @@ import { CommonModule } from '@angular/common';
 })
 export class CodeEditorComponent implements OnInit {
   code = '';
-  exercise = {'title': '', description: ''};
+  exercise = {'title': '', description: '', code: ''};
   result = { error: false, output: ''};
+  reviewOutput = '';
+  loadingReview = false;
 
-  constructor(private dataService: DataService, private route: ActivatedRoute) {
+  constructor(private dataService: DataService, 
+    private route: ActivatedRoute,
+    private chatService: ChatService
+  ) {
 
   }
   ngOnInit(): void {
@@ -26,7 +32,7 @@ export class CodeEditorComponent implements OnInit {
     this.dataService.getExercises().subscribe(data => {
       this.exercise = data[index];
       console.log(this.exercise);
-      this.code = data.code;
+      this.code = this.exercise.code;
     });
   }
 
@@ -36,14 +42,24 @@ export class CodeEditorComponent implements OnInit {
   }
 
   public onCompileClick() {
-    // this.dataService.checkServerHealth().subscribe(status => {
-    //   console.log('Status is: '+ JSON.stringify(status));
-    // });
-
     this.dataService.compileCode(this.code, 'python').subscribe(data => {
       console.log('result is: '+ JSON.stringify(data));
       this.result = data;
       this.result.output = this.result.output.replace(/(?:\r\n|\r|\n)/g, '<br>');
     });
+  }
+
+  doCodeReview() {
+    this.loadingReview = true;
+    let apiKey = prompt("Please enter ChatGPT API Key:") || '';
+    console.log('Doing code review...');
+    this.chatService.getChatResponse('Generate code review for following code: ' + this.code, apiKey)
+    .subscribe(response => {
+      this.reviewOutput = response.choices[0].message.content;
+      this.loadingReview = false;
+      console.log(this.reviewOutput);
+      // console.log(JSON.stringify());
+
+    })
   }
 }

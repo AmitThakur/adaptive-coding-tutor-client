@@ -35,8 +35,7 @@ export class DataService {
       title: "Funky String",
       description: `Given a sentence, where words are delimited by a comma, a period, or a space character, 
       make first and last characters of each of the word to uppercase and other ones to lowercase.`,
-      code : `
-      def process_sentence(sentence):
+      code : `def process_sentence(sentence):
     import re
     
     # Split the sentence into words based on delimiters: comma, period, or space
