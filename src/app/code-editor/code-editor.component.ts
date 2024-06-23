@@ -1,28 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '../data.service';
+import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-code-editor',
   standalone: true,
-  imports: [ FormsModule ],
+  imports: [ FormsModule, CommonModule ],
   templateUrl: './code-editor.component.html',
   styleUrl: './code-editor.component.css'
 })
-export class CodeEditorComponent {
-  code = `# This program adds two numbers
+export class CodeEditorComponent implements OnInit {
+  code = `print(hello`;
+  exercise = {'title': '', description: ''};
+  result = { error: false, output: ''};
 
-num1 = 1.5
-num2 = 6.3
+  constructor(private dataService: DataService, private route: ActivatedRoute) {
 
-# Add two numbers
-sum = num1 + num2
-
-# Display the sum
-print('The sum of {0} and {1} is {2}'.format(num1, num2, sum))`;
-
-  constructor(private dataService: DataService) {
-
+  }
+  ngOnInit(): void {
+    const exerciseid = this.route.snapshot.paramMap.get('exerciseid');
+    let index = Number(exerciseid);
+    console.log('exerciseid: ' + exerciseid);
+    this.dataService.getExercises().subscribe(data => {
+      this.exercise = data[index];
+      console.log(this.exercise);
+    });
   }
 
   public onValueChange(value: any): void {
@@ -35,8 +39,10 @@ print('The sum of {0} and {1} is {2}'.format(num1, num2, sum))`;
     //   console.log('Status is: '+ JSON.stringify(status));
     // });
 
-    this.dataService.compileCode(this.code, 'python').subscribe(result => {
-      console.log('result is: '+ JSON.stringify(result));
+    this.dataService.compileCode(this.code, 'python').subscribe(data => {
+      console.log('result is: '+ JSON.stringify(data));
+      this.result = data;
+      this.result.output = this.result.output.replace(/(?:\r\n|\r|\n)/g, '<br>');
     });
   }
 }

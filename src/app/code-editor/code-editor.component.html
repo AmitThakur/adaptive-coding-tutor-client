@@ -1,3 +1,5 @@
+<h4>Problem Statement: {{exercise.title}}</h4>
+<p>{{exercise.description}}</p>
 <form class="ui form">
     <textarea placeholder="Wite Code here" rows="20" [(ngModel)]="code" name="code" 
     (ngModelChange)="onValueChange($event)"
@@ -5,3 +7,19 @@
 </form>
 <br>
 <button class="ui primary button" (click)="onCompileClick()">Compile</button>
+<br>
+<div class="ui negative message" *ngIf="result && result.error">
+    <i class="close icon"></i>
+    <div class="header">
+        Error occured:
+    </div>
+    <p [innerHTML]="result.output"></p>
+</div>
+
+<div class="ui success message" *ngIf="result && !result.error">
+<i class="close icon"></i>
+<div class="header">
+    Compilation successfully. Output is:
+</div>
+<p [innerHTML]="result.output"></p>
+</div>

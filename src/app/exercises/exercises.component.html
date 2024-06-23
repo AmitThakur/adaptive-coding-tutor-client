@@ -1,10 +1,10 @@
-<div class="ui vertical steps">
-    <div *ngFor="let exercise of exercises" class="step">
-      <i class="check icon"></i>
-      <div class="content">
-        <div class="title">{{exercise.title}}</div>
-        <div class="description">{{exercise.description}}</div>
+<h4>Select an exercise: </h4>
+<div class="ui vertical steps" *ngIf="exercises.length">
+    <div *ngFor="let exercise of exercises; index as i" class="step">
+      <!-- <i class="check icon"></i> -->
+      <div class="content myhover"  (click)="loadExercise(i)">
+        <div class="title" style="cursor: pointer;">Exercise-{{i+1}}: {{exercise.title}}</div>
+        <div class="description" style="cursor: pointer;">{{exercise.description}}</div>
       </div>
     </div>
-    
   </div>

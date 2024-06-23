@@ -11,7 +11,7 @@ export const routes: Routes = [
         title: 'Home page',
     },
     {
-        path: 'code-editor',
+        path: 'code-editor/:exerciseid',
         component: CodeEditorComponent,
         title: 'Code Editor',
     },
