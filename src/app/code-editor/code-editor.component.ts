@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './code-editor.component.css'
 })
 export class CodeEditorComponent implements OnInit {
-  code = `print(hello`;
+  code = '';
   exercise = {'title': '', description: ''};
   result = { error: false, output: ''};
 
@@ -26,6 +26,7 @@ export class CodeEditorComponent implements OnInit {
     this.dataService.getExercises().subscribe(data => {
       this.exercise = data[index];
       console.log(this.exercise);
+      this.code = data.code;
     });
   }
 

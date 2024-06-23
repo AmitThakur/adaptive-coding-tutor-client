@@ -16,7 +16,7 @@
     <p [innerHTML]="result.output"></p>
 </div>
 
-<div class="ui success message" *ngIf="result && !result.error">
+<div class="ui success message" *ngIf="result && !result.error && result.output">
 <i class="close icon"></i>
 <div class="header">
     Compilation successfully. Output is:

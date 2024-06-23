@@ -11,7 +11,11 @@ import { Router } from '@angular/router';
   styleUrl: './exercises.component.css'
 })
 export class ExercisesComponent implements OnInit {
-  exercises =  [];
+  exercises =  [{
+    title : "", 
+    description: "",
+    code: ""
+  }];
   
   ngOnInit() {
     
