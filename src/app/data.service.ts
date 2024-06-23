@@ -7,6 +7,29 @@ import { Observable, of } from 'rxjs';
 })
 export class DataService {
 
+  LESSONS = [
+    {
+      title: "Lesson 01",
+      description: "Python Lists. https://docs.python.org/3/tutorial/introduction.html#lists",
+      completed: true
+    },
+    {
+      title: "Lesson 02",
+      description: "String pattern matching. https://docs.python.org/3/tutorial/stdlib.html#string-pattern-matching",
+      completed: true
+    },
+    {
+      title: "Lesson 03",
+      description: "String lower(). https://docs.python.org/3/library/stdtypes.html#str.lower",
+      completed: false
+    },
+    {
+      title: "Lesson 04",
+      description: "Regular expressions. https://docs.python.org/3/library/re.html",
+      completed: false
+    }
+  ];
+
   EXERCISES = [
     {
       title: "Funky String",
@@ -63,5 +86,9 @@ print(result)
 
   getExercises(): Observable<any> {
     return of(this.EXERCISES);
+  }
+
+  getLessons(): Observable<any> {
+    return of(this.LESSONS);
   }
 }

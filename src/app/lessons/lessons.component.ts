@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-lessons',
@@ -8,23 +9,24 @@ import { Component } from '@angular/core';
   templateUrl: './lessons.component.html',
   styleUrl: './lessons.component.css'
 })
-export class LessonsComponent {
+export class LessonsComponent implements OnInit {
   lessons = [
     {
-      title: "Chapter 01",
-      description: "This is a decsription of ch-01"
-    },
-    {
-      title: "Chapter 02",
-      description: "This is a decsription of ch-02"
-    },
-    {
-      title: "Chapter 03",
-      description: "This is a decsription of ch-03"
-    },
-    {
-      title: "Chapter 04",
-      description: "This is a decsription of ch-04"
+      title: "",
+      description: "",
+      completed: true
     }
   ];
+
+  constructor(private dataService: DataService) {
+
+  }
+  ngOnInit(): void {
+    this.dataService.getLessons().subscribe(data => {
+      this.lessons = data;
+      console.log(this.lessons);
+    });
+  }
+
+
 }
